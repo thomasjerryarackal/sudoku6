@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "676817369",
+    "project_id": "sudoku-ceae5",
+    "storage_bucket": "sudoku-ceae5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676817369:android:e208763fc16d9e23e411c8",
+        "android_client_info": {
+          "package_name": "com.ninja.sudoku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676817369-64l918bms6jieeldi0svrrgdmnnfhp8r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApBScKHm49PMqsN3TXhtbO_vKlgDihAvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676817369-64l918bms6jieeldi0svrrgdmnnfhp8r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
