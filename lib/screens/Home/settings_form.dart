@@ -11,9 +11,8 @@ class SettingForm extends StatefulWidget {
 }
 
 class _SettingFormState extends State<SettingForm> {
-
   final _formKey = GlobalKey<FormState>();
-  final List<String> sugars = ['0','1','2','3','4'];
+  final List<String> sugars = ['0', '1', '2', '3', '4'];
   final List<int> strengths = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 
   // form values
@@ -22,13 +21,11 @@ class _SettingFormState extends State<SettingForm> {
   int _currentStrength;
   @override
   Widget build(BuildContext context) {
-
-
     final user = Provider.of<UserK>(context);
-
     return StreamBuilder<UserData>(
+        stream: DatabaseService(uid: user.uid).userData,
         builder: (context, snapshot) {
-          if(snapshot.hasData){
+          if (snapshot.hasData) {
             UserData userData = snapshot.data;
             return Form(
               key: _formKey,
@@ -42,7 +39,8 @@ class _SettingFormState extends State<SettingForm> {
                   TextFormField(
                     initialValue: userData.name,
                     decoration: textStyle,
-                    validator: (val) => val.isEmpty ? 'Please enter a name' : null,
+                    validator: (val) =>
+                        val.isEmpty ? 'Please enter a name' : null,
                     onChanged: (val) => setState(() => _currentName = val),
                   ),
                   SizedBox(height: 10.0),
@@ -55,17 +53,20 @@ class _SettingFormState extends State<SettingForm> {
                         child: Text('$sugar sugars'),
                       );
                     }).toList(),
-                    onChanged: (val) => setState(() => _currentSugar = val ),
+                    onChanged: (val) => setState(() => _currentSugar = val),
                   ),
                   SizedBox(height: 10.0),
                   Slider(
                     value: (_currentStrength ?? userData.strength).toDouble(),
-                    activeColor: Colors.brown[_currentStrength ?? userData.strength],
-                    inactiveColor: Colors.brown[_currentStrength ?? userData.strength],
+                    activeColor:
+                        Colors.brown[_currentStrength ?? userData.strength],
+                    inactiveColor:
+                        Colors.brown[_currentStrength ?? userData.strength],
                     min: 100.0,
                     max: 900.0,
                     divisions: 8,
-                    onChanged: (val) => setState(() => _currentStrength = val.round()),
+                    onChanged: (val) =>
+                        setState(() => _currentStrength = val.round()),
                   ),
                   RaisedButton(
                       color: Colors.pink[400],
@@ -74,23 +75,21 @@ class _SettingFormState extends State<SettingForm> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        if(_formKey.currentState.validate()){
-                          await DatabaseService(uid : user.uid).updateUserData(
-                              _currentSugar ?? userData.sugars,
+                        if (_formKey.currentState.validate()) {
+                          await DatabaseService(uid: user.uid).updateUserData(
+                            _currentSugar ?? userData.sugars,
                             _currentName ?? userData.name,
-                             _currentStrength ?? userData.strength,
+                            _currentStrength ?? userData.strength,
                           );
                           Navigator.pop(context);
                         }
-                      }
-                  ),
+                      }),
                 ],
               ),
             );
           } else {
             return Loading();
           }
-        }
-    );
+        });
   }
 }
